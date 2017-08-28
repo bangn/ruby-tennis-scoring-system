@@ -43,9 +43,7 @@ class GameHelper
     end
 
     def game_deuce?(player1, player2)
-      return false unless reach_game_point?(player1, player2)
-
-      player1.game_point == player2.game_point
+      (player1.game_point == player2.game_point) && (player1.game_point >= 3)
     end
 
     def game_advantage(player1, player2)

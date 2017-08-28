@@ -65,9 +65,6 @@ RSpec.describe Referee do
         referee.point_won_by('Nadal')
         referee.point_won_by('Nadal')
 
-        referee.point_won_by('Federer')
-        referee.point_won_by('Nadal')
-
         expect(referee.score).to eq('0-0, Deuce')
       end
     end
