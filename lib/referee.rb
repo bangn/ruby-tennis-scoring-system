@@ -1,13 +1,8 @@
 # frozen_string_literal: true
 
-class Referee
-  GAME_POINT_MAPPER = {
-    0 => '0',
-    1 => '15',
-    2 => '30',
-    3 => '40'
-  }
+require 'game_point_calculator'
 
+class Referee
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
@@ -23,6 +18,8 @@ class Referee
   end
 
   def score
+    game_point = GamePointCalculator.game_point(@player1, @player2)
+
     return set_point if game_point.nil?
 
     "#{set_point}, #{game_point}"
@@ -36,15 +33,5 @@ class Referee
 
   def set_point
     "#{@player1.set_point}-#{@player2.set_point}"
-  end
-
-  def game_point
-    return nil if new_game?
-
-    "#{GAME_POINT_MAPPER.fetch(@player1.game_point)}-#{GAME_POINT_MAPPER.fetch(@player2.game_point)}"
-  end
-
-  def new_game?
-    @player1.game_point.zero? && @player2.game_point.zero?
   end
 end
