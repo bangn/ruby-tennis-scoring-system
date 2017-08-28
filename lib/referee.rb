@@ -1,6 +1,6 @@
 # frozen_string_literal: true
 
-require 'game_point_calculator'
+require 'game_helper'
 
 class Referee
   def initialize(player1, player2)
@@ -15,14 +15,16 @@ class Referee
     when @player2.name
       adjust_game_point(@player2)
     end
+
+    adjust_set_point(@player1, @player2)
   end
 
   def score
-    game_point = GamePointCalculator.game_point(@player1, @player2)
+    game_score = GameHelper.calculate_game_score(@player1, @player2)
 
-    return set_point if game_point.nil?
+    return set_score if game_score.nil?
 
-    "#{set_point}, #{game_point}"
+    "#{set_score}, #{game_score}"
   end
 
   private
@@ -31,7 +33,19 @@ class Referee
     player.game_point += 1
   end
 
-  def set_point
+  def adjust_set_point(player1, player2)
+    if GameHelper.reach_game_point?(player1, player2)
+      # Player 1 win a game.
+      if (player1.game_point - player2.game_point >= 2)
+        player1.set_point += 1
+
+        GameHelper.reset_game_point(player1)
+        GameHelper.reset_game_point(player2)
+      end
+    end
+  end
+
+  def set_score
     "#{@player1.set_point}-#{@player2.set_point}"
   end
 end

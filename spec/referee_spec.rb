@@ -15,11 +15,32 @@ describe Referee do
       end
     end
 
-    context 'Nadal win a point' do
+    context 'Nadal wins a point' do
       it 'returns 15 for Nadal' do
         referee.point_won_by('Nadal')
 
         expect(referee.score).to eq('0-0, 15-0')
+      end
+    end
+
+    context 'Nadal wins 3 points' do
+      it 'returns 40 for Nadal' do
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('0-0, 40-0')
+      end
+    end
+
+    context 'Nadal wins a game' do
+      it 'resets game point and increase set point for Nadal' do
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('1-0')
       end
     end
   end
