@@ -13,12 +13,32 @@ describe Match do
     end
 
     context 'Nadal win a point' do
-      before do
-        match.point_won_by('Nadal')
-      end
-
       it 'returns 15 for Nadal' do
+        match.point_won_by('Nadal')
+
         expect(match.score).to eq('0-0, 15-0')
+      end
+    end
+
+    context 'example' do
+      it 'returns correct score' do
+        match.point_won_by('Nadal')
+        match.point_won_by('Federer')
+        expect(match.score).to eq('0-0, 15-15')
+
+        match.point_won_by('Nadal')
+        match.point_won_by('Nadal')
+        expect(match.score).to eq('0-0, 40-15')
+
+        match.point_won_by('Federer')
+        match.point_won_by('Federer')
+        expect(match.score).to eq('0-0, Deuce')
+
+        match.point_won_by('Nadal')
+        expect(match.score).to eq('0-0, Advantage Nadal')
+
+        match.point_won_by('Nadal')
+        expect(match.score).to eq('1-0')
       end
     end
   end
