@@ -43,5 +43,16 @@ describe Referee do
         expect(referee.score).to eq('1-0')
       end
     end
+
+    context 'Federer wins a game' do
+      it 'resets game point and increase set point for Federer' do
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        expect(referee.score).to eq('0-1')
+      end
+    end
   end
 end

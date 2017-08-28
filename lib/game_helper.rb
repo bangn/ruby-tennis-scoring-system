@@ -15,6 +15,14 @@ class GameHelper
       "#{GAME_POINT_MAPPER.fetch(player1.game_point)}-#{GAME_POINT_MAPPER.fetch(player2.game_point)}"
     end
 
+    def game_winner(player1, player2)
+      return nil unless reach_game_point?(player1, player2)
+
+      return player1 if (player1.game_point - player2.game_point >= 2)
+
+      return player2 if (player2.game_point - player1.game_point >= 2)
+    end
+
     def reach_game_point?(player1, player2)
       player1.game_point > 3 || player2.game_point > 3
     end
