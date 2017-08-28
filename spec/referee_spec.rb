@@ -71,5 +71,21 @@ describe Referee do
         expect(referee.score).to eq('0-0, Deuce')
       end
     end
+
+    context 'game is advantage for Nadal' do
+      it 'returns set score and advantage for Nadal' do
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('0-0, Advantage Nadal')
+      end
+    end
   end
 end

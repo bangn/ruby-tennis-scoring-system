@@ -13,6 +13,9 @@ class GameHelper
       return nil if new_game?(player1, player2)
       return 'Deuce' if game_deuce?(player1, player2)
 
+      advantage_player = game_advantage(player1, player2)
+      return "Advantage #{advantage_player.name}" unless advantage_player.nil?
+
       "#{GAME_POINT_MAPPER.fetch(player1.game_point)}-#{GAME_POINT_MAPPER.fetch(player2.game_point)}"
     end
 
@@ -36,6 +39,14 @@ class GameHelper
       return false unless reach_game_point?(player1, player2)
 
       player1.game_point == player2.game_point
+    end
+
+    def game_advantage(player1, player2)
+      return nil unless reach_game_point?(player1, player2)
+
+      return player1 if (player1.game_point - player2.game_point == 1)
+
+      return player2 if (player2.game_point - player1.game_point == 1)
     end
 
     private

@@ -34,18 +34,14 @@ class Referee
   end
 
   def adjust_set_point(player1, player2)
-    case GameHelper.game_winner(player1, player2)
-    when player1
-      player1.set_point += 1
+    game_winner = GameHelper.game_winner(player1, player2)
 
-      GameHelper.reset_game_point(player1)
-      GameHelper.reset_game_point(player2)
-    when player2
-      player2.set_point += 1
+    return unless game_winner
 
-      GameHelper.reset_game_point(player1)
-      GameHelper.reset_game_point(player2)
-    end
+    game_winner.set_point += 1
+
+    GameHelper.reset_game_point(player1)
+    GameHelper.reset_game_point(player2)
   end
 
   def set_score
