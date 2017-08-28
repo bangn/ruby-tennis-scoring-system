@@ -11,6 +11,9 @@ class GameHelper
   class << self
     def calculate_game_score(player1, player2)
       return nil if new_game?(player1, player2)
+
+      return "#{player1.game_point}-#{player2.game_point}" if tie_break?(player1, player2)
+
       return 'Deuce' if game_deuce?(player1, player2)
 
       advantage_player = game_advantage(player1, player2)
@@ -53,6 +56,10 @@ class GameHelper
 
     def new_game?(player1, player2)
       player1.game_point.zero? && player2.game_point.zero?
+    end
+
+    def tie_break?(player1, player2)
+      (player1.set_point == 6) && (player2.set_point == 6)
     end
   end
 end
