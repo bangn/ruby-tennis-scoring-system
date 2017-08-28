@@ -31,7 +31,11 @@ class GameHelper
     end
 
     def reach_game_point?(player1, player2)
-      player1.game_point > 3 || player2.game_point > 3
+      if tie_break?(player1, player2)
+        player1.game_point >= 6 || player2.game_point >= 6
+      else
+        player1.game_point > 3 || player2.game_point > 3
+      end
     end
 
     def reset_game_point(player)

@@ -117,5 +117,53 @@ RSpec.describe Referee do
         expect(referee.score).to eq('6-6, 3-0')
       end
     end
+
+    context 'Nadal wins a game' do
+      it 'resets game point and increase set point for Nadal' do
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('7-6')
+      end
+    end
+
+    context 'Federer wins a game' do
+      it 'resets game point and increase set point for Federer' do
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        expect(referee.score).to eq('6-7')
+      end
+    end
+
+    context 'both player win 6 points' do
+      it 'resets game point and increase set point for Federer' do
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('6-6, 6-6')
+      end
+    end
   end
 end
