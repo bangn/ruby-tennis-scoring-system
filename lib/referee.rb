@@ -1,11 +1,12 @@
 # frozen_string_literal: true
 
-require 'game_helper'
+require 'game_service'
 
 class Referee
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
+    @game_service = GameService.new(player1, player2)
   end
 
   def point_won_by(player_name)
@@ -20,7 +21,7 @@ class Referee
   end
 
   def score
-    game_score = GameHelper.calculate_game_score(@player1, @player2)
+    game_score = @game_service.calculate_game_score
 
     return set_score if game_score.nil?
 
@@ -34,14 +35,14 @@ class Referee
   end
 
   def adjust_set_point(player1, player2)
-    game_winner = GameHelper.game_winner(player1, player2)
+    game_winner = @game_service.game_winner
 
     return unless game_winner
 
     game_winner.set_point += 1
 
-    GameHelper.reset_game_point(player1)
-    GameHelper.reset_game_point(player2)
+    @game_service.reset_game_point(player1)
+    @game_service.reset_game_point(player2)
   end
 
   def set_score
