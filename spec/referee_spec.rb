@@ -54,5 +54,22 @@ describe Referee do
         expect(referee.score).to eq('0-1')
       end
     end
+
+    context 'game is deuce' do
+      it 'returns set score and deuce' do
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+        referee.point_won_by('Federer')
+
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+        referee.point_won_by('Nadal')
+
+        referee.point_won_by('Federer')
+        referee.point_won_by('Nadal')
+
+        expect(referee.score).to eq('0-0, Deuce')
+      end
+    end
   end
 end

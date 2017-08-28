@@ -11,6 +11,7 @@ class GameHelper
   class << self
     def calculate_game_score(player1, player2)
       return nil if new_game?(player1, player2)
+      return 'Deuce' if game_deuce?(player1, player2)
 
       "#{GAME_POINT_MAPPER.fetch(player1.game_point)}-#{GAME_POINT_MAPPER.fetch(player2.game_point)}"
     end
@@ -29,6 +30,12 @@ class GameHelper
 
     def reset_game_point(player)
       player.game_point = 0
+    end
+
+    def game_deuce?(player1, player2)
+      return false unless reach_game_point?(player1, player2)
+
+      player1.game_point == player2.game_point
     end
 
     private
