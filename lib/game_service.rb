@@ -8,6 +8,9 @@ class GameService
     3 => '40'
   }
 
+  GAME_POINT = 3
+  TIE_BREAK_GAME_POINT = 6
+
   def initialize(player1, player2)
     @player1 = player1
     @player2 = player2
@@ -36,9 +39,9 @@ class GameService
 
   def reach_game_point?
     if tie_break?
-      @player1.game_point >= 6 || @player2.game_point >= 6
+      @player1.game_point >= TIE_BREAK_GAME_POINT || @player2.game_point >= TIE_BREAK_GAME_POINT
     else
-      @player1.game_point > 3 || @player2.game_point > 3
+      @player1.game_point > GAME_POINT || @player2.game_point > GAME_POINT
     end
   end
 
@@ -47,7 +50,7 @@ class GameService
   end
 
   def game_deuce?
-    (@player1.game_point == @player2.game_point) && (@player1.game_point >= 3)
+    (@player1.game_point == @player2.game_point) && (@player1.game_point >= GAME_POINT)
   end
 
   def game_advantage
@@ -65,6 +68,6 @@ class GameService
   end
 
   def tie_break?
-    (@player1.set_point == 6) && (@player2.set_point == 6)
+    (@player1.set_point == TIE_BREAK_GAME_POINT) && (@player2.set_point == TIE_BREAK_GAME_POINT)
   end
 end
