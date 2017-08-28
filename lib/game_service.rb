@@ -38,11 +38,9 @@ class GameService
   end
 
   def reach_game_point?
-    if tie_break?
-      @player1.game_point >= TIE_BREAK_GAME_POINT || @player2.game_point >= TIE_BREAK_GAME_POINT
-    else
-      @player1.game_point > GAME_POINT || @player2.game_point > GAME_POINT
-    end
+    return @player1.game_point > GAME_POINT || @player2.game_point > GAME_POINT unless tie_break?
+
+    @player1.game_point >= TIE_BREAK_GAME_POINT || @player2.game_point >= TIE_BREAK_GAME_POINT
   end
 
   def reset_game_point(player)
@@ -51,6 +49,10 @@ class GameService
 
   def game_deuce?
     (@player1.game_point == @player2.game_point) && (@player1.game_point >= GAME_POINT)
+  end
+
+  def adjust_game_point(player)
+    player.game_point += 1
   end
 
   def game_advantage

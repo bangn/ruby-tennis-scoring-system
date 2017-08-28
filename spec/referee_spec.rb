@@ -142,7 +142,7 @@ RSpec.describe Referee do
     end
 
     context 'both player win 6 points' do
-      it 'resets game point and increase set point for Federer' do
+      it 'returns correct score' do
         referee.point_won_by('Federer')
         referee.point_won_by('Federer')
         referee.point_won_by('Federer')

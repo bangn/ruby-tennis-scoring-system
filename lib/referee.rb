@@ -12,9 +12,9 @@ class Referee
   def point_won_by(player_name)
     case player_name
     when @player1.name
-      adjust_game_point(@player1)
+      @game_service.adjust_game_point(@player1)
     when @player2.name
-      adjust_game_point(@player2)
+      @game_service.adjust_game_point(@player2)
     end
 
     adjust_set_point(@player1, @player2)
@@ -29,10 +29,6 @@ class Referee
   end
 
   private
-
-  def adjust_game_point(player)
-    player.game_point += 1
-  end
 
   def adjust_set_point(player1, player2)
     game_winner = @game_service.game_winner
