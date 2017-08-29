@@ -163,4 +163,31 @@ RSpec.describe Referee do
       end
     end
   end
+
+  context 'nearly reach tie-break' do
+    let(:nadal) { Player.new('Nadal', 6, 0) }
+    let(:federer) { Player.new('Federer', 5, 0) }
+    let(:referee) { Referee.new(nadal, federer) }
+
+    it 'Nadal wins' do
+      referee.point_won_by('Nadal')
+      referee.point_won_by('Nadal')
+      referee.point_won_by('Nadal')
+
+      expect(referee.score).to eq('6-5, 40-0')
+
+      referee.point_won_by('Nadal')
+      expect(referee.score).to eq('7-5')
+    end
+
+    it 'Federer wins' do
+      referee.point_won_by('Federer')
+      referee.point_won_by('Federer')
+      expect(referee.score).to eq('6-5, 0-30')
+
+      referee.point_won_by('Federer')
+      referee.point_won_by('Federer')
+      expect(referee.score).to eq('6-6')
+    end
+  end
 end
